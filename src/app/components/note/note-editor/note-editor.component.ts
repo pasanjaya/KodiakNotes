@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
+import { MatDialog } from '@angular/material/dialog';
+
+import { NoteViewerComponent } from '../note-viewer/note-viewer.component';
+
 @Component({
   selector: 'app-note-editor',
   templateUrl: './note-editor.component.html',
@@ -9,7 +13,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class NoteEditorComponent implements OnInit {
 
   editorForm: FormGroup;
-  constructor() { }
+
+  constructor( public dialog: MatDialog ) { }
 
   editorStyle = {
     height: '300px',
@@ -37,6 +42,19 @@ export class NoteEditorComponent implements OnInit {
 
   onSave() {
     console.log(this.editorForm.get('editor').value);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NoteViewerComponent, {
+      width: '350px',
+      data: this.editorForm.get('editor').value
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     console.log('Yes clicked');
+    //   }
+    // });
   }
 
 }

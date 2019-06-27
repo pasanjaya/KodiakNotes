@@ -3,5 +3,6 @@
     <label for="editor"><h3>Note Editor</h3></label>
     <quill-editor [styles]="editorStyle" [modules]="config" formControlName="editor"></quill-editor>
   </div>
+  <button class="btn btn-success mt-3" type="button" (click)="openDialog()">View Note</button>
   <button class="btn btn-success mt-3" type="submit">Save</button>
 </form>
