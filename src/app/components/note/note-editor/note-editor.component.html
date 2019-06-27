@@ -1,0 +1,7 @@
+<form [formGroup]="editorForm" (ngSubmit)="onSave()">
+  <div class="form-group">
+    <label for="editor"><h3>Note Editor</h3></label>
+    <quill-editor [styles]="editorStyle" [modules]="config" formControlName="editor"></quill-editor>
+  </div>
+  <button class="btn btn-success mt-3" type="submit">Save</button>
+</form>
