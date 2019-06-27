@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.kodiakNotes.exception.ResourceNotFoundException;
 import com.example.kodiakNotes.model.Admin;
-import com.example.kodiakNotes.model.User;
 import com.example.kodiakNotes.repository.AdminRepository;
 
 @RestController
