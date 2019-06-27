@@ -1,6 +1,10 @@
 package com.example.kodiakNotes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,6 +27,7 @@ public class Note{
     private String title;
 
     @NotBlank
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column(nullable = false, updatable = false)
@@ -34,10 +39,25 @@ public class Note{
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+    
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user;
 
+    
     // Getters and Setters ... for title and content. Others will auto generate
 	public String getTitle() {
 		return title;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public void setTitle(String title) {
