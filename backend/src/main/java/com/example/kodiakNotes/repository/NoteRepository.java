@@ -12,7 +12,7 @@ import com.example.kodiakNotes.model.Note;
 @Repository
 //@CrossOrigin(origins = "http://localhost:4200")
 public interface NoteRepository extends JpaRepository<Note, Long> {
-	 Page<Note> findByUserId(Long noteId, Pageable pageable);
+	 Page<Note> findByUserId(Long userId, Pageable pageable);
 	 //java.util imported here. Is it ok?
-	 Optional<Note> findByIdAndUserId(Long id, Long noteId);
+	 Optional<Note> findByIdAndUserId(Long id, Long userId);
 } 
