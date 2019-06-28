@@ -8,6 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 import { QuillModule } from 'ngx-quill';
 
@@ -17,6 +21,8 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { NoteComponent } from './components/note/note.component';
 import { NoteEditorComponent } from './components/note/note-editor/note-editor.component';
 import { NoteViewerComponent } from './components/note/note-viewer/note-viewer.component';
+import { NavbarComponent } from './layouts/navbar/navbar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,9 @@ import { NoteViewerComponent } from './components/note/note-viewer/note-viewer.c
     AuthComponent,
     NoteComponent,
     NoteEditorComponent,
-    NoteViewerComponent
+    NoteViewerComponent,
+    NavbarComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +44,10 @@ import { NoteViewerComponent } from './components/note/note-viewer/note-viewer.c
     ReactiveFormsModule,
     QuillModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    DragDropModule
   ],
   entryComponents: [
     NoteViewerComponent
