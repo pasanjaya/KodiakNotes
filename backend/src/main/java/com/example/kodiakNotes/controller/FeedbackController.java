@@ -1,5 +1,9 @@
 package com.example.kodiakNotes.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.kodiakNotes.exception.ResourceNotFoundException;
 import com.example.kodiakNotes.model.Feedback;
+import com.example.kodiakNotes.model.FeedbackData;
 import com.example.kodiakNotes.model.Note;
+import com.example.kodiakNotes.model.User;
+import com.example.kodiakNotes.model.UserData;
 import com.example.kodiakNotes.repository.FeedbackRepository;
 import com.example.kodiakNotes.repository.UserRepository;
 
@@ -26,9 +33,18 @@ public class FeedbackController {
 	FeedbackRepository feedbackRepository;
 	
 	@GetMapping("/feedbacks/{userId}")
-    public Page<Feedback> getAllFeedbacksByUserId(@PathVariable (value = "userId") Long userId,
+    public ArrayList<FeedbackData> getAllFeedbacksByUserId(@PathVariable (value = "userId") Long userId,
                                                 Pageable pageable) {
-        return feedbackRepository.findByUserId(userId, pageable);
+		Optional<User> user = userRepository.findById(userId);
+		Page<Feedback> fee=feedbackRepository.findByUserId(userId, pageable);
+		
+		ArrayList<FeedbackData> arr = new ArrayList<FeedbackData>();
+		List<Feedback> feedback = fee.getContent();
+		for (int i=0;i<feedback.size();++i) {
+			arr.add(new FeedbackData(feedback.get(i).getId(), feedback.get(i).getFeedback(), user.get().getEmail()));
+		}
+		
+        return arr;
     }
 	
 	@PostMapping("/feedbacks/{userId}")
@@ -40,10 +56,4 @@ public class FeedbackController {
         }).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
     }
 	
-//	@PostMapping("/feedbacks/{userId}")
-//    public String createNote(@PathVariable (value = "userId") Long userId,
-//                                 @Valid @RequestBody Feedback feedback) {
-//		System.out.println("ouuuouuouo");
-//        return "i am here";
-//    }
 }

@@ -70,6 +70,14 @@ public class NoteController {
 //        return ResponseEntity.ok().build();
 //    }
     
+    @GetMapping("admin/notes/{userId}")
+    public int getNotesCountByUserId(@PathVariable (value = "userId") Long userId,
+                                                Pageable pageable) {
+    	Page<Note> notes =  noteRepository.findByUserId(userId, pageable);
+    	
+        return notes.getContent().size();
+    }
+    
     @GetMapping("/notes/{userId}")
     public Page<Note> getAllNotesByUserId(@PathVariable (value = "userId") Long userId,
                                                 Pageable pageable) {
