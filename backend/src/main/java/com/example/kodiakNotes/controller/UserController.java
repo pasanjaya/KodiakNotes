@@ -1,10 +1,12 @@
 package com.example.kodiakNotes.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.kodiakNotes.exception.ResourceNotFoundException;
 import com.example.kodiakNotes.model.Note;
 import com.example.kodiakNotes.model.User;
+import com.example.kodiakNotes.model.UserData;
 import com.example.kodiakNotes.repository.UserRepository;
 
 @RestController
@@ -45,4 +48,16 @@ public class UserController {
 	public User createNote(@Valid @RequestBody User user) {
         return userRepository.save(user);
     }
+	
+	@GetMapping("/admin/users")
+	public List<UserData> getAllUsers() {
+		List<User> lst = userRepository.findAll();
+		List<UserData> sendingData = new ArrayList<UserData>();
+		for(int i=0;i<lst.size();++i) {
+			sendingData.add(
+					new UserData(lst.get(i).getId(),lst.get(i).getEmail())
+			);
+		}
+		return sendingData;
+	}
 }
