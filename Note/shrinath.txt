@@ -1,0 +1,19 @@
+1) /admin/users   ==> get method
+	*)Get all the users 
+	*) return user id and email address
+	
+2) /authenticateAdmin  ==> post method
+	*)admin authentication
+	*)send email and password. If correct, return admin's is else exception
+	
+3) /saveAdmin  ==> post method
+	*) Admin registration
+	*) email and password
+	
+4) admin/notes/{userId}  ==> get method
+	*) Get the total note count by specific user
+	*) eg: bhanuka221@gmail.com = 5 notes created 
+	
+5) /feedbacks/{userId}   ===> get method
+	*) get feedback of specific user
+	*) return feedback id, feedback and user email

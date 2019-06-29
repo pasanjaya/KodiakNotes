@@ -1,0 +1,25 @@
+1)authentication
+	*) /authenticate   ==> post method
+			*) Send email and password when login
+			*) Return userId if correct else exception
+	
+	*) /saveUser   ==> post method
+		*)User registration
+
+2) User 
+	*) /notes/{userId}   ==> get method
+		*) get notes of a specific user
+		
+	*) /notes/{userId}   ==> post method
+		*) save a post of a user
+		
+	*) /notes/{userId}/note/{noteId}   ==> put method
+		*) update a note
+		
+	*) /notes/{userId}/note/{noteId}   ==> delete method
+		*) delete a note
+		
+3) feedback
+	*) /feedbacks/{userId}  ==> post method
+		*) add a feedback by user
+	
