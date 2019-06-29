@@ -1,19 +1,89 @@
-<form>
-<div class="group">
-  <label for="regEmail" class="label">Email Address</label>
-  <input id="regEmail" type="email" class="input" />
-</div>
-<div class="group">
-  <label for="regPass" class="label">Password</label>
-  <input id="regPass" type="password" class="input" data-type="password" autocomplete="on" />
-</div>
-<div class="group">
-  <label for="regCon-pass" class="label">Repeat Password</label>
-  <input id="regCon-pass" type="password" class="input" data-type="password" autocomplete="on" />
-</div>
-<div class="group">
-  <input type="submit" class="button" value="Sign Up" />
-</div>
+<form [formGroup]="userRegForm" (ngSubmit)="onRegister()">
+  <div class="group">
+    <label for="regEmail" class="label">Email Address</label>
+    <input id="regEmail" type="email" class="input" formControlName="email" />
+    <span
+      *ngIf="
+        userRegForm.get('email').invalid && userRegForm.get('email').touched
+      "
+      class="text-danger"
+    >
+      <span *ngIf="userRegForm.get('email').errors['required']"
+        >This field is required</span
+      >
+      <span *ngIf="userRegForm.get('email').errors['email']"
+        >Must be a email
+      </span>
+    </span>
+  </div>
+  <div formGroupName="userPassword">
+    <div class="group">
+      <label for="regPass" class="label">Password</label>
+      <input
+        id="regPass"
+        type="password"
+        class="input"
+        data-type="password"
+        autocomplete="on"
+        formControlName="password"
+      />
+      <span
+        *ngIf="
+          userRegForm.get('userPassword.password').invalid &&
+          userRegForm.get('userPassword.password').touched
+        "
+        class="text-danger"
+      >
+        <span
+          *ngIf="userRegForm.get('userPassword.password').errors['required']"
+          >This field is required</span
+        >
+      </span>
+    </div>
+    <div class="group">
+      <label for="regCon-pass" class="label">Repeat Password</label>
+      <input
+        id="regCon-pass"
+        type="password"
+        class="input"
+        data-type="password"
+        autocomplete="on"
+        formControlName="confirmPassword"
+      />
+      <span
+        *ngIf="
+          userRegForm.get('userPassword.confirmPassword').invalid &&
+          userRegForm.get('userPassword.confirmPassword').touched
+        "
+        class="text-danger"
+      >
+        <span
+          *ngIf="
+            userRegForm.get('userPassword.confirmPassword').errors['required']
+          "
+          >This field is required</span
+        >
+      </span>
+    </div>
+    <span
+      *ngIf="
+        userRegForm.get('userPassword.password').value &&
+        userRegForm.get('userPassword.confirmPassword').value &&
+        userRegForm.get('userPassword.password').dirty &&
+        userRegForm.get('userPassword.confirmPassword').dirty &&
+        userRegForm.get('userPassword').invalid &&
+        userRegForm.get('userPassword').touched
+      "
+      class="text-danger"
+    >
+      <span *ngIf="userRegForm.get('userPassword').errors['passwordMismatched']"
+        >Passwords mismatched!</span
+      >
+    </span>
+  </div>
+  <div class="group">
+    <input type="submit" class="button" value="Sign Up" />
+  </div>
 </form>
 <div class="hr"></div>
 <div class="foot-lnk">
