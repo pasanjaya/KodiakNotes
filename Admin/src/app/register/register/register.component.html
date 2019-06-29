@@ -1,0 +1,56 @@
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<body>
+<div class="container">
+        <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+        	<div class="panel panel-default">
+        		<div class="panel-heading">
+			    		<h3 class="panel-title">Regsiter here</h3>
+			 			</div>
+			 			<div class="panel-body">
+			    		<form role="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					
+			    				</div>
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					
+			    				</div>
+			    			</div>
+
+			    			<div class="form-group">
+								<input type="email"  class="form-control input-sm" placeholder="Email Address" formControlName="email">
+								<div *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched" class = "text-danger">
+									<small *ngIf = "registerForm.controls.email.errors.required">Email must be required</small>
+									<small *ngIf="registerForm.controls.email.errors.email">Email value should be a email address</small>
+								</div>
+                            </div>
+                            <div class="form-group">
+								<input type="password"  class="form-control input-sm" placeholder="password" formControlName="password">
+                            	<div *ngIf = "registerForm.controls.password.invalid && registerForm.controls.password.touched" class = "text-danger">
+									<small *ngIf = "registerForm.controls.password.errors.required">Password must be required</small>
+									<small *ngIf = "registerForm.controls.password.errors.minlength">Password length mus be at least 8 characters</small>
+								</div>
+                            </div>
+                            <div class="form-group">
+								<input type="password"  class="form-control input-sm" placeholder="Confirm password" formControlName="Confirmpassword">
+								<div *ngIf = "registerForm.controls.Confirmpassword.invalid && registerForm.controls.Confirmpassword.touched" class = "text-danger">
+									<small *ngIf = "registerForm.controls.Confirmpassword.errors.required">Confirm Password must be required</small>
+									<small *ngIf = "registerForm.controls.Confirmpassword.errors.mustMatch">Password and confirm Password must match</small>
+								</div>
+			    			</div>
+
+	    			    <button  type="submit"  class="btn btn-info btn-block" [disabled]="registerForm.invalid">Register</button>
+			    		
+			    		</form>
+			    	</div>
+	    		</div>
+    		</div>
+    	</div>
+    </div>
+</body>
