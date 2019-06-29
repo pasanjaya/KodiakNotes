@@ -29,6 +29,7 @@ export class NoteEditorComponent implements OnInit {
       [{ list: 'ordered'}, { list: 'bullet' }],
       [{ color: [] }, { background: [] }],
       [{ font: [] }],
+      [{ size: ['small', false, 'large', 'huge'] }],
       [{ align: [] }],
       ['clean']
     ]

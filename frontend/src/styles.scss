@@ -1,8 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Domine|Pacifico&display=swap');
 
 html, body { height: 100%; }
 body {
-  margin: 20px;
+  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #EEEDE9;
+  background: url("./assets/images/backgrounds/noteBG.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  padding: 0;
+  background-color: rgba(175, 166, 226, 0.24);
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  margin: 10px;
+  margin-right: 20px;
+  text-align: right;
+  font-family: 'Pacifico', cursive;
+  color: rgba(168, 151, 221, 0.746);
+}
+
+.ql-toolbar.ql-snow {
+  background-color: rgba(230, 224, 238, 0.842);
 }

@@ -1,14 +1,27 @@
-<form [formGroup]="editorForm" (ngSubmit)="onSave()" class="note-form">
-  <div class="form-group">
-    <mat-form-field class="note-full-width">
-      <input matInput placeholder="Note title">
-    </mat-form-field>
-  </div>
-  <div class="form-group">
-    <quill-editor [styles]="editorStyle" [modules]="config" formControlName="note"></quill-editor>
-  </div>
-  <div class="text-right">
-      <button class="btn btn-light mt-3 mr-3" type="button" (click)="openDialog()">View Note</button>
+
+  <form [formGroup]="editorForm" (ngSubmit)="onSave()" class="note-form">
+    <div class="form-group">
+      <mat-form-field class="note-full-width">
+        <input matInput type="text">
+        <mat-placeholder class="placeholder">Note title</mat-placeholder>
+        <mat-icon matSuffix class="text-light">edit</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <quill-editor
+        [styles]="editorStyle"
+        [modules]="config"
+        formControlName="note"
+      ></quill-editor>
+    </div>
+    <div class="text-right">
+      <button
+        class="btn btn-light mt-3 mr-3"
+        type="button"
+        (click)="openDialog()"
+      >
+        View Note
+      </button>
       <button class="btn btn-success mt-3" type="submit">Save</button>
-  </div>
-</form>
+    </div>
+  </form>

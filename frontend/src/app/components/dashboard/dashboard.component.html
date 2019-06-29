@@ -1,3 +1,32 @@
-<div class="example-box" cdkDrag *ngFor="let item of list">
-  Drag me around
+<div class="container">
+  <h3 class="dashboard-title">My Notes</h3>
+  <div class="example-boundary">
+    <div >
+      <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile *ngFor="let item of list" cdkDragBoundary=".example-boundary" cdkDrag>
+      <div class="example-box">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <div class="d-flex">
+                <div class="ml-auto p-2">Flex item</div>
+                <div class="p-2"><i class="fa fa-edit text-info"></i></div>
+                <div class="p-2"><i class="fa fa-trash-o text-danger"></i></div>
+              </div>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              The Shiba Inu is the smallest of the six original and distinct
+              spitz breeds of dog from Japan. A small, agile dog that copes very
+              well with mountainous terrain, the Shiba Inu was originally bred
+              for hunting.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+    </div>
+  </div>
 </div>
