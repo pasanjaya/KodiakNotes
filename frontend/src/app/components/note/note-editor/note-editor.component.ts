@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -12,12 +12,12 @@ import { NoteViewerComponent } from '../note-viewer/note-viewer.component';
 })
 export class NoteEditorComponent implements OnInit {
 
-  editorForm: FormGroup;
-
   constructor( public dialog: MatDialog ) { }
 
+  editorForm: FormGroup;
+
   editorStyle = {
-    height: '300px',
+    height: '400px',
     backgroundColor: '#fff'
   };
 
@@ -29,6 +29,7 @@ export class NoteEditorComponent implements OnInit {
       [{ list: 'ordered'}, { list: 'bullet' }],
       [{ color: [] }, { background: [] }],
       [{ font: [] }],
+      [{ size: ['small', false, 'large', 'huge'] }],
       [{ align: [] }],
       ['clean']
     ]
@@ -36,18 +37,22 @@ export class NoteEditorComponent implements OnInit {
 
   ngOnInit() {
     this.editorForm = new FormGroup({
-      editor: new FormControl(null)
+      title: new FormControl(null, Validators.required),
+      note: new FormControl(null, Validators.required)
     });
   }
 
   onSave() {
-    console.log(this.editorForm.get('editor').value);
+    console.log(this.editorForm.get('note').value);
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(NoteViewerComponent, {
       width: '350px',
-      data: this.editorForm.get('editor').value
+      data: {
+        title: this.editorForm.get('title').value,
+        note: this.editorForm.get('note').value
+      }
     });
 
     // dialogRef.afterClosed().subscribe(result => {

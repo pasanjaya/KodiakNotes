@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class NoteViewerComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<NoteViewerComponent>,
-              @Inject(MAT_DIALOG_DATA) public message: string) { }
+              @Inject(MAT_DIALOG_DATA) public message: any) { }
 
   ngOnInit() {
   }
