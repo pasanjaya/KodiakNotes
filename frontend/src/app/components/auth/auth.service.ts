@@ -18,6 +18,18 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  getToken() {
+    return this.token;
+  }
+
+  getUserId() {
+    return this.id;
+  }
+
+  getIsAuth() {
+    return this.isAuthenticated;
+  }
+
   getAuthStatusLintener() {
     return this.authStatusListener.asObservable();
   }
