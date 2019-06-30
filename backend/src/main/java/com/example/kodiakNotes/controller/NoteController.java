@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 //@RequestMapping("/api")
@@ -84,6 +85,14 @@ public class NoteController {
         return noteRepository.findByUserId(userId, pageable);
     }
     
+    @GetMapping("/notes/{userId}/note/{noteId}")
+    public Optional<Note> getANoteByUserId(@PathVariable (value = "userId") Long userId,
+    											@PathVariable (value = "noteId") Long noteId,
+                                                Pageable pageable) {
+    	return noteRepository.findByIdAndUserId(noteId, userId);
+        //return noteRepository.findByUserId(userId, pageable);
+    }
+    
     @PostMapping("/notes/{userId}")
     public Note createNote(@PathVariable (value = "userId") Long userId,
                                  @Valid @RequestBody Note note) {
@@ -103,6 +112,7 @@ public class NoteController {
 
         return noteRepository.findById(noteId).map(note -> {
             note.setTitle(noteRequest.getTitle());
+            note.setContent(noteRequest.getContent());
             return noteRepository.save(note);
         }).orElseThrow(() -> new ResourceNotFoundException("Note ", "id", noteId));
     }
