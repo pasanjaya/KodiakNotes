@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators, FormBuilder} from '@angular/forms';
 import {Registration} from './register.model';
 import {PasswordMatch} from './passwordvalidation';
+import {RegisterService} from '../register.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -11,7 +13,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private registerService: RegisterService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -43,11 +45,15 @@ export class RegisterComponent implements OnInit {
     var registrationDetails: Registration= {
     
       email: this.registerForm.get('email').value,
-      password: this.registerForm.get('password').value,
-      confirmpassword: this.registerForm.get('Confirmpassword').value
+      password: this.registerForm.get('password').value
 
     }
     console.log(registrationDetails);
+    this.registerService.addAdmin(registrationDetails).subscribe(data=>{
+      console.log(data);
+    });
   }
+
+
 
 }

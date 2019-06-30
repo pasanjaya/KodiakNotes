@@ -8,14 +8,14 @@
 
 <div class="container">
 
-	<form class="form-signin" method="POST" [formGroup]=loginForm >
+	<form class="form-signin"  [formGroup]=loginForm  (ngModel)="onSubmit()">
         <h1 class="form-signin-heading text-muted">Sign In</h1>
        
         <label>EMAIL</label>
             <input type="email" class="form-control" placeholder="Email address" required="" formControlName="email" >
         <label>PASSWORD</label>
 		    <input type="password" class="form-control" placeholder="Password" required="" formControlName="password">
-		<button class="btn btn-lg btn-primary btn-block"  [routerLink]="['/dashboard']" (click)=onSubmit()>
+		<button type = "submit" class="btn btn-lg btn-primary btn-block"  [routerLink]="['/dashboard']" >
 			Sign In
         </button>
        
