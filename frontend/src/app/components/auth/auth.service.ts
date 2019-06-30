@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
 
   private token: string;
-  private id: object | number;
+  private id: number;
   private isAuthenticated = false;
 
   private authStatusListener = new Subject<boolean>();
@@ -51,10 +51,10 @@ export class AuthService {
   }
 
   userLogin(email: string, password: string) {
-    const helper = new JwtHelperService();
+    // const helper = new JwtHelperService();
     const userLoginData = { email, password };
     this.http
-      .post(
+      .post<{loginType: string, id: number, email: string}>(
         'http://localhost:8080/authenticate',
         userLoginData
       )
@@ -67,7 +67,7 @@ export class AuthService {
           // const decodedToken = helper.decodeToken(token);
           // const id = decodedToken.userId;
           // this.id = id;
-          this.id = response;
+          this.id = response.id;
           console.log(this.id);
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
@@ -90,10 +90,11 @@ export class AuthService {
     if (!authInformation) {
       return;
     }
-    const helper = new JwtHelperService();
+    // const helper = new JwtHelperService();
     this.token = authInformation.token;
-    const decodedToken = helper.decodeToken(this.token);
-    this.id = decodedToken.userId;
+    this.id = +authInformation.userId;
+    // const decodedToken = helper.decodeToken(this.token);
+    // this.id = decodedToken.userId;
     this.isAuthenticated = true;
     this.authStatusListener.next(true);
   }
@@ -107,7 +108,7 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  private saveAuthData(token: string, userId: object) {
+  private saveAuthData(token: string, userId: number) {
     localStorage.setItem('token', token);
     localStorage.setItem('userId', String(userId));
   }
