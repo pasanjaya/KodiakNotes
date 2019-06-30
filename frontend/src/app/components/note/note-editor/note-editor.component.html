@@ -2,7 +2,7 @@
   <form [formGroup]="editorForm" (ngSubmit)="onSave()" class="note-form">
     <div class="form-group">
       <mat-form-field class="note-full-width">
-        <input matInput type="text">
+        <input matInput type="text" formControlName="title">
         <mat-placeholder class="placeholder">Note title</mat-placeholder>
         <mat-icon matSuffix class="text-light">edit</mat-icon>
       </mat-form-field>
@@ -19,9 +19,13 @@
         class="btn btn-light mt-3 mr-3"
         type="button"
         (click)="openDialog()"
+        *ngIf="editorForm.valid"
       >
         View Note
       </button>
-      <button class="btn btn-success mt-3" type="submit">Save</button>
+      <button class="btn btn-success mt-3" type="submit" [disabled]="editorForm.invalid">
+        <span *ngIf="!isEditMode">Save</span>
+        <span *ngIf="isEditMode">Update</span>
+      </button>
     </div>
   </form>

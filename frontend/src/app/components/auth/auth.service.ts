@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
 
   private token: string;
-  private id: string;
+  private id: string | number;
   private isAuthenticated = false;
 
   private authStatusListener = new Subject<boolean>();
@@ -54,23 +54,30 @@ export class AuthService {
     const helper = new JwtHelperService();
     const userLoginData = { email, password };
     this.http
-      .post<{ token: string, expiresIn: number }>(
+      .post<{ userId: number,  }>(
         'http://localhost:8080/authenticate',
         userLoginData
       )
       .subscribe(response => {
         console.log(response);
-        const token = response.token;
+        // const token = response.token;
+        const token = 'response.token;';
         this.token = token;
         if (token) {
           const decodedToken = helper.decodeToken(token);
           const id = decodedToken.userId;
-          this.id = id;
+          // this.id = id;
+          this.id = response.userId;
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           this.saveAuthData(token);
-          this.router.navigate(['/dashboard', id]);
+          this.router.navigate(['/dashboard', this.id]);
+        } else if (response) {
+          console.log('no token');
+          this.id = response.userId;
+          this.router.navigate(['/dashboard', this.id]);
         }
+
       }, error => {
         this.authStatusListener.next(false);
       });
