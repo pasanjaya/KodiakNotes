@@ -15,6 +15,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { QuillModule } from 'ngx-quill';
 
@@ -60,7 +61,8 @@ import { ErrorComponent } from './shared/errors/errors.component';
     DragDropModule,
     MatCardModule,
     MatGridListModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     NoteViewerComponent,

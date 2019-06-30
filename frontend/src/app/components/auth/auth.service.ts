@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,21 @@ export class AuthService {
   private token: string;
   private id: number;
   private isAuthenticated = false;
+  private isLoading = true;
 
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
+  }
+
+  getLoading(): boolean {
+    return this.isLoading;
+  }
 
   getToken() {
     return this.token;
@@ -44,9 +56,12 @@ export class AuthService {
       .post('http://localhost:8080/saveUser', userData)
       .subscribe(response => {
         console.log(response);
+        this.openSnackBar('Registration Success, Please Login!', 'Okay');
+        this.isLoading = false;
         this.router.navigate(['/']);
       }, error => {
         this.authStatusListener.next(false);
+        this.openSnackBar('Registration Failed !', 'Okay');
       });
   }
 

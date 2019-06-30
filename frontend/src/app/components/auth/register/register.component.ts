@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { AuthService } from '../auth.service';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   userRegForm: FormGroup;
   private authStatusSub: Subscription;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService ) { }
 
   ngOnInit() {
     this.authStatusSub = this.authService

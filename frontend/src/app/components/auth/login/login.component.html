@@ -46,7 +46,10 @@
     <label for="check"><span class="icon"></span> Keep me Signed in</label>
   </div>
   <div class="group">
-    <input type="submit" class="button" value="Sign In" />
+    <button type="submit" class="button" value="Sign In">
+      <span class="spinner-grow spinner-grow-sm" *ngIf="isLoading" role="status" aria-hidden="true"></span>
+      Sign In
+    </button>
   </div>
 </form>
 <div class="hr"></div>
