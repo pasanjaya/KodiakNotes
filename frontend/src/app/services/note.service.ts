@@ -14,9 +14,7 @@ export class NoteService {
   private noteData: NoteData[] = [];
   private noteDataUpdated = new Subject<NoteData[]>();
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.getAuthData();
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   getAuthData() {
     const token = localStorage.getItem('token');
@@ -28,16 +26,20 @@ export class NoteService {
   }
 
   saveNotes(title: string, note: string) {
+    this.getAuthData();
     const noteData = {
       title,
       content: note
     };
 
     this.http
-      .post<{ id: number; title: string, content: string, createdAt: Date, updatedAt: Date }>(
-        'http://localhost:8080/notes/' + this.userId,
-        noteData
-      )
+      .post<{
+        id: number;
+        title: string;
+        content: string;
+        createdAt: Date;
+        updatedAt: Date;
+      }>('http://localhost:8080/notes/' + this.userId, noteData)
       .subscribe(response => {
         console.log(response);
         const messageRequest: NoteData = {
@@ -54,6 +56,8 @@ export class NoteService {
   }
 
   getNotes() {
+    this.getAuthData();
+    console.log('myId' + this.userId);
     this.http
       .get<{ content: any; pageable: any }>(
         'http://localhost:8080/notes/' + this.userId
@@ -61,17 +65,15 @@ export class NoteService {
       .pipe(
         map(noteData => {
           // console.log(noteData);
-          return noteData.content.map(
-            noteDataCollection => {
-              return {
-                id: noteDataCollection.id,
-                title: noteDataCollection.title,
-                note: noteDataCollection.content,
-                createdAt: noteDataCollection.createdAt,
-                updatedAt: noteDataCollection.updatedAt
-              };
-            }
-          );
+          return noteData.content.map(noteDataCollection => {
+            return {
+              id: noteDataCollection.id,
+              title: noteDataCollection.title,
+              note: noteDataCollection.content,
+              createdAt: noteDataCollection.createdAt,
+              updatedAt: noteDataCollection.updatedAt
+            };
+          });
         })
       )
       .subscribe(transformedData => {
@@ -85,40 +87,55 @@ export class NoteService {
   }
 
   getNoteEdit(id: number) {
-    return {...this.noteData.find(note => note.id === id) };
+    this.getAuthData();
+    return this.http.get<{
+      id: number;
+      title: string;
+      content: string;
+      createdAt: Date;
+      updatedAt: Date;
+    }>('http://localhost:8080/notes/' + this.userId + '/note/' + id);
+
   }
 
   updateNote(id: number, title: string, note: string) {
+    this.getAuthData();
     const noteData = {
-        id,
-        title,
-        content: note
-      };
+      id,
+      title,
+      content: note
+    };
     console.log(noteData);
-    this.http.put('http://localhost:8080/notes/' + this.userId + '/note/' + id, noteData)
-    .subscribe(response => {
-      console.log(response);
-      const updatedNote = [...this.noteData];
-      const oldAdvIndex = updatedNote.findIndex(n => n.id === id);
-      const notes: NoteData = {
-        id,
-        title,
-        note
-      };
-      updatedNote[oldAdvIndex] = notes;
-      this.noteData = updatedNote;
-      this.noteDataUpdated.next([...this.noteData]);
-      this.router.navigate(['/dashboard']);
-    });
+    this.http
+      .put(
+        'http://localhost:8080/notes/' + this.userId + '/note/' + id,
+        noteData
+      )
+      .subscribe(response => {
+        console.log(response);
+        const updatedNote = [...this.noteData];
+        const oldAdvIndex = updatedNote.findIndex(n => n.id === id);
+        const notes: NoteData = {
+          id,
+          title,
+          note
+        };
+        updatedNote[oldAdvIndex] = notes;
+        this.noteData = updatedNote;
+        this.noteDataUpdated.next([...this.noteData]);
+        this.router.navigate(['/dashboard']);
+      });
   }
 
   deleteNote(id: number) {
-    this.http.delete('http://localhost:8080/notes/' + this.userId + '/note/' + id)
-    .subscribe(() => {
-      console.log('deleted');
-      const updatedNotes = this.noteData.filter(note => note.id !== id);
-      this.noteData = updatedNotes;
-      this.noteDataUpdated.next([...this.noteData]);
-    });
+    this.getAuthData();
+    this.http
+      .delete('http://localhost:8080/notes/' + this.userId + '/note/' + id)
+      .subscribe(() => {
+        console.log('deleted');
+        const updatedNotes = this.noteData.filter(note => note.id !== id);
+        this.noteData = updatedNotes;
+        this.noteDataUpdated.next([...this.noteData]);
+      });
   }
 }

@@ -55,10 +55,19 @@ export class NoteEditorComponent implements OnInit {
       if (paramMap.has('id')) {
         this.isEditMode = true;
         this.noteId = +paramMap.get('id');
-        this.note = this.noteService.getNoteEdit(this.noteId);
-        this.setEditerForm();
-        console.log(this.note);
-        console.log(this.noteId);
+        this.noteService.getNoteEdit(this.noteId).subscribe(response => {
+          console.log(response);
+          this.note = {
+            id: response.id,
+            title: response.title,
+            note: response.content,
+            createdAt: response.createdAt,
+            updatedAt: response.updatedAt
+          };
+          this.setEditerForm();
+          console.log(this.note);
+          console.log(this.noteId);
+        });
       } else {
         this.isEditMode = false;
         this.noteId = null;
