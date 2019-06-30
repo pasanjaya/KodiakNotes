@@ -10,10 +10,22 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class NoteService {
+  private userId: number;
   private noteData: NoteData[] = [];
   private noteDataUpdated = new Subject<NoteData[]>();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    this.getAuthData();
+  }
+
+  getAuthData() {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    if (!token) {
+      return;
+    }
+    this.userId = +userId;
+  }
 
   saveNotes(title: string, note: string) {
     const noteData = {
@@ -23,7 +35,7 @@ export class NoteService {
 
     this.http
       .post<{ id: number; title: string, content: string, createdAt: Date, updatedAt: Date }>(
-        'http://localhost:8080/notes/2',
+        'http://localhost:8080/notes/' + this.userId,
         noteData
       )
       .subscribe(response => {
@@ -44,7 +56,7 @@ export class NoteService {
   getNotes() {
     this.http
       .get<{ content: any; pageable: any }>(
-        'http://localhost:8080/notes/2'
+        'http://localhost:8080/notes/' + this.userId
       )
       .pipe(
         map(noteData => {
@@ -83,7 +95,7 @@ export class NoteService {
         content: note
       };
     console.log(noteData);
-    this.http.put('http://localhost:8080/notes/2/note/' + id, noteData)
+    this.http.put('http://localhost:8080/notes/' + this.userId + '/note/' + id, noteData)
     .subscribe(response => {
       console.log(response);
       const updatedNote = [...this.noteData];
@@ -101,7 +113,7 @@ export class NoteService {
   }
 
   deleteNote(id: number) {
-    this.http.delete('http://localhost:8080/notes/2/note/' + id)
+    this.http.delete('http://localhost:8080/notes/' + this.userId + '/note/' + id)
     .subscribe(() => {
       console.log('deleted');
       const updatedNotes = this.noteData.filter(note => note.id !== id);

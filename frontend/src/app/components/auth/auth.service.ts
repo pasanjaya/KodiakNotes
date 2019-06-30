@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
 
   private token: string;
-  private id: string | number;
+  private id: object | number;
   private isAuthenticated = false;
 
   private authStatusListener = new Subject<boolean>();
@@ -54,7 +54,7 @@ export class AuthService {
     const helper = new JwtHelperService();
     const userLoginData = { email, password };
     this.http
-      .post<{ userId: number,  }>(
+      .post(
         'http://localhost:8080/authenticate',
         userLoginData
       )
@@ -64,19 +64,21 @@ export class AuthService {
         const token = 'response.token;';
         this.token = token;
         if (token) {
-          const decodedToken = helper.decodeToken(token);
-          const id = decodedToken.userId;
+          // const decodedToken = helper.decodeToken(token);
+          // const id = decodedToken.userId;
           // this.id = id;
-          this.id = response.userId;
+          this.id = response;
+          console.log(this.id);
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
-          this.saveAuthData(token);
-          this.router.navigate(['/dashboard', this.id]);
-        } else if (response) {
-          console.log('no token');
-          this.id = response.userId;
-          this.router.navigate(['/dashboard', this.id]);
+          this.saveAuthData(token, this.id);
+          this.router.navigate(['/dashboard']);
         }
+        // else if (response) {
+        //   console.log('no token');
+        //   this.id = response.userId;
+        //   this.router.navigate(['/dashboard', this.id]);
+        // }
 
       }, error => {
         this.authStatusListener.next(false);
@@ -102,24 +104,28 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.clearAuthData();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
-  private saveAuthData(token: string) {
+  private saveAuthData(token: string, userId: object) {
     localStorage.setItem('token', token);
+    localStorage.setItem('userId', String(userId));
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
   }
 
   private getAuthData() {
     const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
     if (!token) {
       return;
     }
     return {
-      token
+      token,
+      userId
     };
   }
 

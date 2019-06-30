@@ -1,7 +1,7 @@
 <div class="container">
   <h3 class="dashboard-title">My Notes</h3>
   <div class="example-boundary">
-    <div *ngIf="!(noteData.length > 0)">
+    <div *ngIf="!(noteData.length > 0)" class="emptyNotediv">
       <mat-card class="emptyNoteCard">
         <mat-card-header>
           <mat-card-title>
@@ -18,13 +18,12 @@
       </mat-card>
     </div>
     <div *ngIf="(noteData.length > 0)">
-      <mat-grid-list cols="2" rowHeight="fit">
-        <mat-grid-tile
+      <!-- <mat-grid-list cols="2" rowHeight="1:2"> -->
+        <div
           *ngFor="let note of noteData"
           cdkDragBoundary=".example-boundary"
-          cdkDrag
         >
-          <div class="example-box">
+          <div class="example-box mr-3 mb-2" cdkDrag>
             <mat-card class="card">
               <mat-card-header>
                 <mat-card-title>
@@ -46,8 +45,8 @@
               <mat-card-content [innerHTML]="note.note"></mat-card-content>
             </mat-card>
           </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </div>
+      <!-- </mat-grid-list> -->
     </div>
   </div>
 </div>
