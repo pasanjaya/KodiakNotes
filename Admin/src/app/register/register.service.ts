@@ -14,7 +14,12 @@ export class RegisterService {
   addAdmin(admin: Registration): Observable<any> {
     return this.http.post<any>("http://localhost:8080/saveAdmin", admin);
 
-  }
+ }
+
+  authenticateAdmin(admin: Registration): Observable<any>{
+    return this.http.post<any>("http://localhost:8080//authenticateAdmin",admin);
+
+ }
 }
 
 
