@@ -26,6 +26,8 @@ import { NoteEditorComponent } from './components/note/note-editor/note-editor.c
 import { NoteViewerComponent } from './components/note/note-viewer/note-viewer.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DeleteConfirmationBoxComponent } from './shared/delete-confirmation-box/delete-confirmation-box.component';
+import { ErrorComponent } from './shared/errors/errors.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     NoteEditorComponent,
     NoteViewerComponent,
     NavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    DeleteConfirmationBoxComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatIconModule
   ],
   entryComponents: [
-    NoteViewerComponent
+    NoteViewerComponent,
+    DeleteConfirmationBoxComponent,
+    ErrorComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
