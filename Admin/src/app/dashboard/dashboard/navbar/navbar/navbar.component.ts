@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  isLoggedin:any;
 
   constructor() { }
 
   ngOnInit() {
+    this.isLoggedin=localStorage.getItem("logValue");
   }
 
 }

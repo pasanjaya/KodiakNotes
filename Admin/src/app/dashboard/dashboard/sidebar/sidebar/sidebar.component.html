@@ -1,38 +1,30 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
-   <div id="wrapper">
+   <div *ngIf="isLoggedin=='true'" id="wrapper">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a (click)= "logOut()" >Log Out</a>
+                </li>
+               
+                <li>
+                    <a routerLink="stat" routerLinkActive="active">Statistics</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a routerLink="db" routerLinkActive="active">User Database</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                    <a routerLink="feedbacks" routerLinkActive="active">View Feedbacks</a>
                 </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <!-- <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -43,7 +35,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- /#page-content-wrapper -->
 
     </div>
