@@ -1,13 +1,13 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
-   <div id="wrapper">
+   <div *ngIf="isLoggedin=='true'" id="wrapper">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li>
-                    <a>Dashboard</a>
+                    <a (click)= "logOut()" >Log Out</a>
                 </li>
                
                 <li>

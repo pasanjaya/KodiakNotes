@@ -48,8 +48,10 @@ export class LoginComponent implements OnInit {
     this.registerService.authenticateAdmin(loginDetails).subscribe(data=>{
       console.log(typeof(data));
       if(data!= null ){
+          localStorage.setItem("logValue","true");
           console.log("if condition")
           this.router.navigate(["/dashboard"]);
+          
       }
     })
     
