@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   deleteDialog(id: number): void {
     const dialogRef = this.dialog.open(DeleteConfirmationBoxComponent, {
       width: '350px',
-      data: 'Do you confirm the deletion of this advertisement?'
+      data: 'Do you confirm the deletion of this note?'
     });
 
     dialogRef.afterClosed().subscribe(result => {
