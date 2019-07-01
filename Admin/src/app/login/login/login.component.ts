@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ResolvedReflectiveFactory } from '@angular/core';
 import {FormBuilder,FormGroup,Validators, FormControl} from '@angular/forms';
 import {Login} from './login.model';
+import {RegisterService} from '../../register/register.service'
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -14,6 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuider: FormBuilder,
+    private registerService: RegisterService,
+    private router: Router
 
   ) { }
 
@@ -29,6 +34,7 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     
     this.submitted = true;
+    console.log("submitted");
 
     if(this.loginForm.invalid){
       console.log("error")
@@ -39,6 +45,13 @@ export class LoginComponent implements OnInit {
       password:  this.loginForm.get('password').value
     }
     console.log(loginDetails);
+    this.registerService.authenticateAdmin(loginDetails).subscribe(data=>{
+      console.log(typeof(data));
+      if(data!= null ){
+          console.log("if condition")
+          this.router.navigate(["/dashboard"]);
+      }
+    })
     
   }
 
