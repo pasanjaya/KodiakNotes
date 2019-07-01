@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       console.log('login Form error');
       return;
     }
-
+    this.isLoading = true;
     this.authService.userLogin(this.email.value, this.password.value);
     this.revert();
   }
