@@ -12,9 +12,9 @@ const routes: Routes = [
     {path: '' , component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'dashboard', component: DashboardComponent},
-    {path: 'dashboard/stat', component: StatComponent},
-    {path: 'dashboard/db', component: UserDbComponent},
-    {path: 'dashboard/feedbacks', component: FeedbackComponent}
+    {path: 'stat', component: StatComponent},
+    {path: 'db', component: UserDbComponent},
+    {path: 'feedbacks', component: FeedbackComponent}
     
 ];
 
