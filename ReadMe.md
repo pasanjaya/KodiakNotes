@@ -15,11 +15,15 @@ Start the apache + MySQL servers in your computer
 
 Use `application.properties` to change database configurations
 
-then open the backend folder run Maven install
+Then open the backend folder run Maven install
 
-after that, run the `KodiakNotesApplication.java` file as java application
+After that, run the `KodiakNotesApplication.java` file as java application
+
+Do `cd frontend` and install dependencies `npm install`
 
 Run `ng serve` for the frontend user application. Navigate to `http://localhost:4200/`.
+
+In a new teraminal do `cd backend` and install dependencies `npm install`
 
 Run `ng serve --port 4300` for the frontend admin application. Navigate to `http://localhost:4300/`.
 
